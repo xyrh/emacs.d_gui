@@ -10,10 +10,12 @@
 (global-linum-mode t)
 (setq-default cursor-type 'bar)
 (setq inhibit-splash-screen t)
+(setq auto-save-default nil)
 (setq make-backup-files nil)
 
 (electric-pair-mode t)
 (show-paren-mode t)
+(global-auto-revert-mode t)
 (global-diff-hl-mode)
 
 (setq c-default-style "linux")
@@ -23,6 +25,7 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq mouse-yank-at-point t)
+(setq ring-bell-function 'ignore)
 
 (defun show-buffer-file-name ()
   (interactive)
@@ -54,6 +57,9 @@
 (avy-setup-default)
 (global-set-key (kbd "M-g a") 'avy-goto-char)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
+
+(require 'popwin)
+(popwin-mode t)
 
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
@@ -93,7 +99,7 @@
     ("11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" default)))
  '(package-selected-packages
    (quote
-    (fiplr imenu-anywhere helm ace-window youdao-dictionary counsel-gtags avy counsel ivy swiper diff-hl company molokai-theme))))
+    (popwin fiplr imenu-anywhere helm ace-window youdao-dictionary counsel-gtags avy counsel ivy swiper diff-hl company molokai-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
