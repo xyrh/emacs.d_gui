@@ -2,8 +2,6 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -22,6 +20,8 @@
 (setq-default c-basic-offset 4
 			  tab-width 4
 			  indent-tabs-mode nil)
+(global-set-key (kbd "TAB") 'self-insert-command)
+(setq backward-delete-char-untabify-method 'hungry)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq mouse-yank-at-point t)
@@ -35,6 +35,8 @@
           (message file-name)
           (kill-new file-name)))))
 (global-set-key (kbd "C-c C-f") 'show-buffer-file-name)
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
 (setq url-automatic-caching t)
 (global-set-key (kbd "C-c i") 'youdao-dictionary-search-from-input)
@@ -58,9 +60,6 @@
 (global-set-key (kbd "M-g a") 'avy-goto-char)
 (global-set-key (kbd "M-g l") 'avy-goto-line)
 
-(require 'popwin)
-(popwin-mode t)
-
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
@@ -78,16 +77,10 @@
 (setq initial-frame-alist (quote ((fullscreen . maximized))))
 (load-theme 'molokai t)
 
-(autoload 'gtags-mode "gtags" "" t)
-(add-hook 'gtags-select-mode-hook
-	  '(lambda ()
-	     (setq hl-line-face 'underline)
-	     (hl-line-mode 1)))
-(add-hook 'c-mode-hook
-	  '(lambda ()
-	     (gtags-mode 1)))
-(setq gtags-suggested-key-mapping t)
-(setq gtags-auto-update t)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (ggtags-mode 1))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -99,10 +92,11 @@
     ("11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" default)))
  '(package-selected-packages
    (quote
-    (popwin fiplr imenu-anywhere helm ace-window youdao-dictionary counsel-gtags avy counsel ivy swiper diff-hl company molokai-theme))))
+    (ggtags fiplr imenu-anywhere helm ace-window youdao-dictionary counsel-gtags avy counsel ivy swiper diff-hl company molokai-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'dired-find-alternate-file 'disabled nil)
