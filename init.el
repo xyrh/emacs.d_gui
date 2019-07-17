@@ -27,6 +27,9 @@
 (setq mouse-yank-at-point t)
 (setq ring-bell-function 'ignore)
 
+(global-set-key (kbd "C-a") 'mwim-beginning)
+(global-set-key (kbd "C-e") 'mwim-end)
+
 (defun show-buffer-file-name ()
   (interactive)
   (let ((file-name (buffer-file-name)))
@@ -45,16 +48,15 @@
 
 (global-set-key (kbd "M-o") 'ace-window)
 
-(global-set-key (kbd "C-\\") #'helm-imenu-anywhere)
+(global-set-key (kbd "M-\\") #'helm-imenu-anywhere)
 
 (setq fiplr-root-markers '(".git" ".svn"))
 (setq fiplr-ignored-globs '((directories (".git" ".svn"))
                             (files ("*.jpg" "*.png" "*.zip" "*~"))))
-(global-set-key (kbd "C-x f") 'fiplr-find-file)
+(global-set-key (kbd "C-\\") 'fiplr-find-file)
 
 (avy-setup-default)
-(global-set-key (kbd "M-s a") 'avy-goto-char)
-(global-set-key (kbd "M-s l") 'avy-goto-line)
+(global-set-key (kbd "M-/") 'avy-goto-char)
 
 (avy-setup-default)
 (global-set-key (kbd "M-g a") 'avy-goto-char)
@@ -66,7 +68,7 @@
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "C-c k") 'counsel-ag)
+(global-set-key (kbd "M-;") 'counsel-ag)
 (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
 
 (global-company-mode t)
@@ -82,6 +84,12 @@
             (when (derived-mode-p 'c-mode 'c++-mode)
               (ggtags-mode 1))))
 
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
+(require 'highlight-symbol)
+(global-set-key [f5] 'highlight-symbol)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -92,7 +100,7 @@
     ("11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" default)))
  '(package-selected-packages
    (quote
-    (ggtags fiplr imenu-anywhere helm ace-window youdao-dictionary counsel-gtags avy counsel ivy swiper diff-hl company molokai-theme))))
+    (highlight-symbol neotree mwim ggtags fiplr imenu-anywhere helm ace-window youdao-dictionary counsel-gtags avy counsel ivy swiper diff-hl company molokai-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
