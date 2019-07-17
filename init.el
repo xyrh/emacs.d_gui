@@ -23,12 +23,17 @@
 (global-set-key (kbd "TAB") 'self-insert-command)
 (setq backward-delete-char-untabify-method 'hungry)
 
+(setq split-width-threshold 0)
+
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq mouse-yank-at-point t)
 (setq ring-bell-function 'ignore)
 
 (global-set-key (kbd "C-a") 'mwim-beginning)
 (global-set-key (kbd "C-e") 'mwim-end)
+
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 (defun show-buffer-file-name ()
   (interactive)
@@ -102,7 +107,7 @@
     ("11e57648ab04915568e558b77541d0e94e69d09c9c54c06075938b6abc0189d8" default)))
  '(package-selected-packages
    (quote
-    (highlight-symbol neotree mwim ggtags fiplr imenu-anywhere helm ace-window youdao-dictionary counsel-gtags avy counsel ivy swiper diff-hl company molokai-theme))))
+    (expand-region highlight-symbol neotree mwim ggtags fiplr imenu-anywhere helm ace-window youdao-dictionary counsel-gtags avy counsel ivy swiper diff-hl company molokai-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
